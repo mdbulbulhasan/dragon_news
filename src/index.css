@@ -16,3 +16,8 @@
 * {
   font-family: "Poppins", sans-serif;
 }
+/* for active link*/
+a.active{
+  /* for use tailwind class */
+  @apply bg-base-300;
+}
