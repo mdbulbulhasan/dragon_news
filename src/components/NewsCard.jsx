@@ -1,4 +1,4 @@
-import { FaStar, FaEye } from "react-icons/fa";
+import { FaStar, FaEye, FaRegStar } from "react-icons/fa";
 import { FiShare2, FiBookmark } from "react-icons/fi";
 import { format } from "date-fns";
 
@@ -53,8 +53,19 @@ const NewsCard = ({ news }) => {
       {/* Footer */}
       <div className="flex justify-between items-center text-sm text-gray-600 p-4">
         <div className="flex items-center gap-2">
-          <FaStar className="text-orange-400" />
+          {/* Render 5 stars based on rating */}
+          {Array.from({ length: 5 }).map((_, index) =>
+            index < rating.number ? (
+              <FaStar key={index} className="text-orange-400" />
+            ) : (
+              <FaRegStar key={index} className="text-gray-300" />
+            )
+          )}
+
+          {/* Rating number */}
           <span>{rating.number}</span>
+
+          {/* Badge */}
           <span className="badge badge-secondary badge-sm">{rating.badge}</span>
         </div>
         <div className="flex items-center gap-2">
