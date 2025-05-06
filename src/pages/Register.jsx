@@ -1,25 +1,46 @@
-import React, { use } from "react";
-import { Link } from "react-router";
+import React, { use, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
-  const { createUser, setUser } = use(AuthContext);
+  const { createUser, setUser, updateUser } = use(AuthContext);
+  const [nameError, setNameError] = useState("");
+  const navigate = useNavigate();
   const handleRegister = (e) => {
     e.preventDefault();
     console.log(e.target);
     const form = e.target;
     const name = form.name.value;
+    if (name.length < 5) {
+      setNameError("Name should be more than 5 charactter");
+      return;
+    } else {
+      setNameError("");
+    }
     const photoUrl = form.photoUrl.value;
     const email = form.email.value;
     const password = form.password.value;
     console.log({ name, photoUrl, email, password });
-    createUser(email, password).then((result) => {
-      const user = result.user;
-      // console.log(user);
-      setUser(user);
-    }).catch((error) => {
-      console.log(error);
-    })
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        // console.log(user);
+        updateUser({
+          displayName: name,
+          photoURL: photoUrl,
+        })
+          .then(() => {
+            setUser({ ...user, displayName: name, photoURL: photoUrl });
+            navigate("/");
+          })
+          .catch((error) => {
+            console.log(error);
+            setUser(user);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <div className="flex justify-center min-h-screen items-center">
@@ -38,6 +59,7 @@ const Register = () => {
               placeholder="Your Name"
               required
             />
+            {nameError && <p className="text-xs text-red-500">{nameError}</p>}
             {/* Photo URL */}
             <label className="label">Photo URL</label>
             <input
