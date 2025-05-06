@@ -1,9 +1,10 @@
 import { FaStar, FaEye, FaRegStar } from "react-icons/fa";
 import { FiShare2, FiBookmark } from "react-icons/fi";
 import { format } from "date-fns";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
-  const { title, author, details, image_url, rating, total_view } = news;
+  const {id, title, author, details, image_url, rating, total_view } = news;
 
   return (
     <div className="card rounded-md shadow-sm bg-white">
@@ -44,9 +45,9 @@ const NewsCard = ({ news }) => {
         {/* Details (trimmed with Read More link) */}
         <p className="text-sm text-gray-700 mb-3  ">
           {details.slice(0, 150)}...
-          <span className="text-blue-500 ml-1 cursor-pointer hover:underline">
+          <Link to={`/news-details/${id}`} className="text-blue-500 ml-1 cursor-pointer hover:underline">
             Read More
-          </span>
+          </Link>
         </p>
       </div>
 
