@@ -27,6 +27,7 @@ const Login = () => {
         setError(errorCode);
       });
   };
+  // flex justify-center min-h-screen items-center
   return (
     <div className="flex justify-center min-h-screen items-center">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl py-5">
@@ -56,10 +57,10 @@ const Login = () => {
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
-            {
-              error && <p className="text-xs text-red-500">{error}</p>
-            }
-            <button type="submit" className="btn btn-neutral mt-4">Login</button>
+            {error && <p className="text-xs text-red-500">{error}</p>}
+            <button type="submit" className="btn btn-neutral mt-4">
+              Login
+            </button>
             <p className="font-semibold text-center pt-5">
               Dont’t Have An Account ?{" "}
               <Link className="text-secondary" to="/auth/register">
